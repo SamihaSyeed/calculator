@@ -1,0 +1,69 @@
+.container{
+    background-color: rgb(67, 76, 80);
+    width:300px;
+    height: 450px;
+    margin:auto;
+    border-radius: 10px;
+}
+
+.display{
+    height:20%;
+    text-align: right;
+    width:90%;
+    margin:auto;
+    padding-top:13px;
+    margin-bottom: 10px;
+    
+}
+#display-operation{
+    background-color: rgb(71, 133, 71);
+    height:40%;
+    font-size: 25px;
+    border:solid 1px black;
+    border-bottom: none;
+    padding-right:2px
+}
+
+#display-num{
+    background-color: rgb(71, 133, 71);
+    height:60%;
+    font-size:40px;
+    border:solid 1px black;
+    border-top: none;
+    padding-right: 2px;
+    
+
+}
+.keypad{
+    display:flex;
+    height:100% ;   
+    
+}
+.number-keypad{
+    width:100%;
+    height:70%;
+    margin-left:15px;    
+}
+.number-btn{
+    width:33%;
+    height: 25%;
+    font-size: 18px;
+    background-color: rgb(172, 177, 172);
+    border:solid 1px black;
+    
+}
+.number-btn:hover{
+    background-color: grey;
+}
+.operation-btn:hover{
+    background-color: rgb(80, 79, 79);
+}
+.operation-btn{
+    width: 75%;
+    height:14%;
+    font-size: 25px;
+    margin-left: 3px;
+    background-color: rgb(115, 117, 115);
+    border: solid 1px black;
+    
+}
