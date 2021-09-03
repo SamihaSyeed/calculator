@@ -13,8 +13,9 @@ let operationObj = {
     4: '='
 }
 let array= []
+let displayArray=[]
 
-for(let i=0; i<10; i++){
+for(let i=9; i>=0; i--){
     let number= document.createElement('button')
     number.innerHTML=i
     keypadDiv.appendChild(number)
@@ -23,28 +24,39 @@ for(let i=0; i<10; i++){
     let numberBtn = document.querySelector('#number'+i)
     numberBtn.addEventListener('click', ()=>{        
         numberPressed = i
-        displayNum.textContent+=numberPressed
-        displayFull.textContent+= numberPressed
-        
+        displayNum.textContent+=numberPressed  
+        displayArray.push(numberPressed)     
         
     })
 }
+let lowerPanelDiv = document.querySelector('.lower-panel')
 
 let clearEl = document.createElement('button')
 clearEl.innerHTML = 'C'
-keypadDiv.appendChild(clearEl)
-let dummy = document.createElement('button')
-dummy.innerHTML = 'd'
-keypadDiv.appendChild(dummy)
-clearEl.setAttribute('id', 'clear-btn')
-clearEl.classList.add('number-btn')
-dummy.classList.add('number-btn')
+lowerPanelDiv.appendChild(clearEl)
 
-let clearBtn = document.querySelector('#clear-btn') 
-clearBtn.addEventListener('click', ()=>{
-    displayNum.textContent=0
-    displayFull.textContent=0
-})
+clearEl.setAttribute('id', 'clear-btn')
+clearEl.classList.add('number-btn', 'lower-panel-btn')
+
+let zeroBtn = document.querySelector('#number'+0)
+zeroBtn.classList.add('lower-panel-btn')
+lowerPanelDiv.appendChild(zeroBtn)
+
+let decimalPoint = document.createElement('button')
+decimalPoint.innerHTML = '.'
+lowerPanelDiv.appendChild(decimalPoint)
+decimalPoint.classList.add('number-btn', 'lower-panel-btn')
+decimalPoint.setAttribute('id', 'decimal-point')
+
+
+decimalPointBtn = document.querySelector('#decimal-point')
+
+
+
+
+let clearBtn = document.querySelector('#clear-btn')
+
+
 
 
 for(let i=0; i<5; i++){
@@ -57,16 +69,19 @@ for(let i=0; i<5; i++){
     operationBtn.addEventListener('click', ()=>{
         
         calledOperation= operationObj[i]        
-        displayFull.textContent+=calledOperation         
+                
         
         array.push(displayNum.textContent)
         array.push(calledOperation)
+        displayArray.push(calledOperation)
+        displayFull.textContent = displayArray.join(' ')
         
         displayNum.textContent=null
         let soln=null
         console.log(array)
         if(array.indexOf('+')!=-1 && array.indexOf('+')!=array.length-1){
-            soln=calc['+']().toFixed(2)
+            soln=calc['+']()
+            if(Math.floor(soln) !== soln){ soln = soln.toFixed(2)}
             if(isFinite(soln)==false){return displayFull.textContent='Error'}
             
             array.splice(0,3, soln)
@@ -106,16 +121,36 @@ for(let i=0; i<5; i++){
             if(isFinite(soln)==false || soln==null){displayFull.textContent= "Error." }
             array.splice(array.indexOf('='),1)    
             array= array.filter((item)=>{ return item!=''})  
-            displayFull.textContent+=soln
-            displayNum.textContent=soln            
+            displayArray.splice(0)
+            displayArray.push(soln)   
+            displayFull.textContent += displayArray
+            displayNum.textContent=soln  
+                   
         }
 
     })
     
 }
 
-let firstNum = (operator)=>{ return parseInt(array[array.indexOf(operator)-1])}
-let secondNum = (operator)=>{ return parseInt(array[array.indexOf(operator)+1]) }
+clearBtn.addEventListener('click', ()=>{
+    array=[]
+    displayArray=[]
+    displayNum.textContent=0
+    displayFull.textContent=0
+    
+    console.log(array)
+})
+
+decimalPointBtn.addEventListener('click' , ()=>{
+    if(displayArray.indexOf('.') == -1){
+    numberPressed='.'
+    displayNum.textContent+= numberPressed
+    displayArray.push(numberPressed)
+    }else{ return displayFull.textContent= 'error'}
+})
+
+let firstNum = (operator)=>{ return parseFloat(array[array.indexOf(operator)-1])}
+let secondNum = (operator)=>{ return parseFloat(array[array.indexOf(operator)+1]) }
 
 let calc= {
     '+': function(){ return firstNum('+') + secondNum('+')},
@@ -123,3 +158,7 @@ let calc= {
     '*': function(){ return firstNum('*') * secondNum('*')},
     '/': function(){ return firstNum('/') / secondNum("\/") }    
 }
+
+
+
+
