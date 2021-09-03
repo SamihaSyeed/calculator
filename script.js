@@ -90,7 +90,8 @@ for(let i=0; i<5; i++){
             console.log(array)
         }
         if(array.indexOf('-')!=-1 && array.indexOf('-')!=array.length-1){
-            soln=calc['-']().toFixed(2)
+            soln=calc['-']()
+            if(Math.floor(soln) !== soln){ soln = soln.toFixed(2)}
             if(isFinite(soln)==false){return displayFull.textContent='Error'}
             array.splice(0,3, soln)
             if(array.indexOf('=')!=-1){array.splice(array.indexOf('='),1)    
@@ -98,7 +99,8 @@ for(let i=0; i<5; i++){
             console.log(array) 
         }
          if(array.indexOf('*')!=-1 && array.indexOf('*')!=array.length-1){
-            soln=calc['*']().toFixed(2)
+            soln=calc['*']()
+            if(Math.floor(soln) !== soln){ soln = soln.toFixed(2)}
             if(isFinite(soln)==false){return displayFull.textContent='Error'}
             array.splice(0,3, soln)
             if(array.indexOf('=')!=-1){array.splice(array.indexOf('='),1)    
@@ -106,7 +108,8 @@ for(let i=0; i<5; i++){
             console.log(array) 
         }
          if(array.indexOf('/')!=-1 && array.indexOf('/')!=array.length-1){
-            soln=calc['/']().toFixed(2)
+            soln=calc['/']()
+            if(Math.floor(soln) !== soln){ soln = soln.toFixed(2)}
         
             if(isFinite(soln)==false){
                 displayFull.textContent= "Error." 
